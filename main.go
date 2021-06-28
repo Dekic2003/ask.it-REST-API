@@ -1,21 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
+	"log"
+	"main/db"
+	"main/questions"
+	"net/http"
 )
 
-func getQuestions(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Doslo")
-}
-
 func main() {
+	err := godotenv.Load(".env")
+	if err !=nil{
+		panic(err)
+	}
+	db.Init()
+
 	r := mux.NewRouter()
-
-	r.HandleFunc("/", getQuestions).Methods("GET")
+	r.HandleFunc("/", questions.Get).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8000", r))
-
 }
