@@ -40,7 +40,7 @@ CREATE TABLE question_reactions(
                        question_id int unsigned not null,
                        author_id int unsigned not null,
 
-                       action bit,
+                       action bool,
 
                        created_at timestamp default current_timestamp,
                        updated_at timestamp default current_timestamp on update current_timestamp,
@@ -54,7 +54,7 @@ CREATE TABLE answer_reactions(
                        answer_id int unsigned not null,
                        author_id int unsigned not null,
 
-                       action bit,
+                       action bool,
 
                        created_at timestamp default current_timestamp,
                        updated_at timestamp default current_timestamp on update current_timestamp,

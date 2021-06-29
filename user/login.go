@@ -3,12 +3,11 @@ package user
 import (
 	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"main/db"
+	"main/utils"
 	"net/http"
-	"os"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +16,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err != nil{
 		panic(err)
 	}
-	var signingKey= []byte(os.Getenv("TOKEN_KEY"))
 	var user LoginUser
 	var userDB DbUser
 
@@ -25,41 +23,24 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	password:=[]byte(user.Password)
 
-	results, err := db.Connection.Query("SELECT * FROM users where email=? ",user.Email)
-	for results.Next(){
-		err=results.Scan(&userDB.Id,&userDB.Name,&userDB.Surname,&userDB.Email,&userDB.Password,&userDB.CreatedAt,&userDB.UpdatedAt)
-		if err!=nil{
-			panic(err)
-		}
+	err = db.Connection.QueryRow("SELECT * FROM users where email=? ",user.Email).Scan(&userDB.Id,&userDB.Name,&userDB.Surname,&userDB.Email,&userDB.Password,&userDB.CreatedAt,&userDB.UpdatedAt)
+	if err !=nil{
+		utils.WriteError(w,"Unable to fetch user",err,http.StatusInternalServerError)
+		return
 	}
 	passwordDB:=[]byte(userDB.Password)
 	err =bcrypt.CompareHashAndPassword(passwordDB,password);
 	if err!=nil{
-		panic(err)
+		utils.WriteError(w,"Password incorrect",err,http.StatusUnprocessableEntity)
+		return
 	}
-		token:=jwt.New(jwt.SigningMethodHS256)
 
-		claims:=token.Claims.(jwt.MapClaims)
-
-		claims["authorized"]=true
-		claims["user"]=userDB.Email
-
-		tokenString,err :=token.SignedString(signingKey)
-		if err!=nil{
-			panic(err)
-		}
 		var userR returnUser
-		userR.AccessToken=tokenString
+		userR.AccessToken=utils.JWTGenerator(userDB.Name,userDB.Id)
 		userR.Name=userDB.Name
 		userR.Id=userDB.Id
 		userR.Surname=userDB.Surname
 		userR.Email=userDB.Email
-		res,err := json.Marshal(userR)
-		if err !=nil {
-			panic(err)
-		}
-		w.Header().Set("Content-Type","application/json")
-		w.Write(res)
-
+		utils.WriteSuccess(w,userR)
 }
 
