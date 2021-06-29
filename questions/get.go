@@ -12,13 +12,13 @@ import (
 func Get(w http.ResponseWriter, r *http.Request) {
 
 	var questions []Question
-	results, err := db.Connection.Query("SELECT * FROM question")
+	results, err := db.Connection.Query("SELECT question.id, users.id as author_id, users.email, question.question, question.likes, question.dislikes, question.created_at, question.updated_at FROM question INNER JOIN users on question.author_id = users.id")
 	if err!=nil {
 		panic(err)
 	}
 	for results.Next(){
 		var question Question
-		err=results.Scan(&question.Id,&question.AuthorId,&question.Question,&question.Likes,&question.Dislikes,&question.CreatedAt,&question.UpdatedAt)
+		err=results.Scan(&question.Id,&question.AuthorId,&question.Author,&question.Question,&question.Likes,&question.Dislikes,&question.CreatedAt,&question.UpdatedAt)
 		if err!=nil{
 			panic(err)
 		}

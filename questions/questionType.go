@@ -8,8 +8,9 @@ type EditedQuestion struct {
 }
 
 type Question struct {
-	Id string `json:"id"`
-	AuthorId string `json:"author_id"`
+	Id int `json:"id"`
+	AuthorId int `json:"author_id"`
+	Author string `json:"author"`
 	Question string `json:"question"`
 	Likes int `json:"likes"`
 	Dislikes int `json:"dislikes"`
