@@ -19,5 +19,6 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", questions.Get).Methods("GET")
+	r.HandleFunc("/", questions.Post).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
