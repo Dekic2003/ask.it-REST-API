@@ -8,15 +8,15 @@ import (
 	"net/http"
 )
 
-func Post(w http.ResponseWriter, r *http.Request) {
+func Delete(w http.ResponseWriter, r *http.Request) {
 
 	req,err := ioutil.ReadAll(r.Body)
 	if err != nil{
 		panic(err)
 	}
-	var question NewQuestion
+	var question DeleteQuestion
 	json.Unmarshal(req,&question)
-	db.Connection.Query("INSERT INTO question(author_id,question) VALUES (?,?) ",question.AuthorId,question.Question)
+	db.Connection.Query("DELETE FROM question WHERE id = ?",question.Id)
 
 }
 

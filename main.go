@@ -20,5 +20,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", questions.Get).Methods("GET")
 	r.HandleFunc("/", questions.Post).Methods("POST")
+	r.HandleFunc("/", questions.Edit).Methods("PUT")
+	r.HandleFunc("/", questions.Delete).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

@@ -5,18 +5,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"main/db"
 	"net/http"
-	"time"
 )
 
-type Question struct {
-	Id string `json:"id"`
-	AuthorId string `json:"author_id"`
-	Question string `json:"question"`
-	Likes int `json:"likes"`
-	Dislikes int `json:"dislikes"`
-	CreatedAt *time.Time `json:"created_at"`
-	UpdatedAt *time.Time `json:"updated_at"`
-}
+
 
 func Get(w http.ResponseWriter, r *http.Request) {
 
