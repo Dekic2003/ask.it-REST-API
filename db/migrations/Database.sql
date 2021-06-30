@@ -36,30 +36,28 @@ CREATE TABLE answers(
     foreign key (author_id) references users(id)
 );
 CREATE TABLE question_reactions(
-                       id int unsigned not null auto_increment,
                        question_id int unsigned not null,
                        author_id int unsigned not null,
 
-                       action bool,
+                       rating bool,
 
                        created_at timestamp default current_timestamp,
                        updated_at timestamp default current_timestamp on update current_timestamp,
 
-                       primary key (id),
+                       primary key (question_id,author_id),
                        foreign key (question_id) references question(id),
                        foreign key (author_id) references users(id)
 );
 CREATE TABLE answer_reactions(
-                       id int unsigned not null auto_increment,
-                       answer_id int unsigned not null,
-                       author_id int unsigned not null,
+                     answer_id int unsigned not null,
+                     author_id int unsigned not null,
 
-                       action bool,
+                     rating bool,
 
-                       created_at timestamp default current_timestamp,
-                       updated_at timestamp default current_timestamp on update current_timestamp,
+                     created_at timestamp default current_timestamp,
+                     updated_at timestamp default current_timestamp on update current_timestamp,
 
-                       primary key (id),
-                       foreign key (author_id) references users(id),
-                       foreign key (answer_id) references answer(id)
+                     primary key (answer_id,author_id),
+                     foreign key (answer_id) references answer(id),
+                     foreign key (author_id) references users(id)
 );

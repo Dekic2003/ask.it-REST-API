@@ -33,8 +33,6 @@ func main() {
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Post)).Methods("POST")
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Edit)).Methods("PUT")
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Delete)).Methods("DELETE")
-
-
 	log.Fatal(http.ListenAndServe(":8000", r))
 
 }
