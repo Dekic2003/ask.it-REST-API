@@ -6,4 +6,5 @@ type ErrMsg struct {
 }
 type SuccessMsg struct {
 	Data interface{} `json:"data"`
+	Success bool `json:"success"`
 }

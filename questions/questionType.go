@@ -24,3 +24,8 @@ type NewQuestion struct {
 type DeleteQuestion struct {
 	Id int `json:"id"`
 }
+type QuestionReaction struct {
+	AuthorId int `json:"author_id"`
+	QuestionId int `json:"question_id"`
+	Reaction bool `json:"reaction"`
+}

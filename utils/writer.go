@@ -19,9 +19,10 @@ func WriteError(w http.ResponseWriter,message string,error error, statusCode int
 	w.WriteHeader(statusCode)
 	w.Write(v)
 }
-func WriteSuccess(w http.ResponseWriter,data interface{})  {
+func WriteSuccess(w http.ResponseWriter,data interface{},success bool)  {
 	res:=SuccessMsg{
 		data,
+		success,
 	}
 	v,err := json.Marshal(res)
 	if err !=nil{

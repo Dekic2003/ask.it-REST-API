@@ -41,6 +41,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		userR.Id=userDB.Id
 		userR.Surname=userDB.Surname
 		userR.Email=userDB.Email
-		utils.WriteSuccess(w,userR)
+		utils.WriteSuccess(w,userR,true)
 }
 

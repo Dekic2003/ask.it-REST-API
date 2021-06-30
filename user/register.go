@@ -42,7 +42,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	userR.Id= int(userid)
 	userR.Surname=user.Surname
 	userR.Email=user.Email
-	utils.WriteSuccess(w,userR)
+	utils.WriteSuccess(w,userR,true)
 
 }
 

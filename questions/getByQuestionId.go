@@ -20,6 +20,6 @@ func GetByQuestionId(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w,"Unable to fetch question",err,http.StatusInternalServerError)
 	}
 
-	utils.WriteSuccess(w,question)
+	utils.WriteSuccess(w,question,true)
 
 }
