@@ -12,6 +12,18 @@ type LoginUser struct {
 	Email string `json:"email"`
 	Password string `json:"password"`
 }
+type ChangePasswordUser struct {
+	Id int `json:"id"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+	NewPassword string `json:"newPassword"`
+}
+type ChangeUserInfo struct {
+	Id int `json:"id"`
+	Name string`json:"name"`
+	Surname string `json:"surname"`
+	Email string `json:"email"`
+}
 type DbUser struct {
 	Id int `json:"id"`
 	Name string `json:"name"`
@@ -46,4 +58,10 @@ type Notification struct {
 }
 type NotificationUpdate struct {
 	Id int `json:"id"`
+}
+type returnUserById struct {
+	Id int `json:"id"`
+	Name string `json:"name"`
+	Surname string `json:"surname"`
+	Email string `json:"email"`
 }
