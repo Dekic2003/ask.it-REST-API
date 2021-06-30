@@ -22,6 +22,8 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", questions.Get).Methods("GET")
+	r.HandleFunc("/hot", questions.GetHotQuestions).Methods("GET")
+	r.HandleFunc("/user/leaderboard", user.Leaderboard).Methods("GET")
 	r.HandleFunc("/question/{id}", questions.GetByQuestionId).Methods("GET")
 	r.HandleFunc("/author/{id}", questions.GetByAuthorId).Methods("GET")
 	r.HandleFunc("/",middleware.ValidateToken(questions.Post)).Methods("POST")

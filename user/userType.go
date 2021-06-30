@@ -28,3 +28,11 @@ type returnUser struct {
 	Email string `json:"email"`
 	AccessToken string `json:"access_token"`
 }
+type LeaderboardUser struct {
+	Id int `json:"id"`
+	Name string `json:"name"`
+	Surname string `json:"surname"`
+	Email string `json:"email"`
+	Answers int `json:"answers"`
+	Questions int `json:"questions"`
+}
