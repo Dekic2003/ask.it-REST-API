@@ -36,3 +36,14 @@ type LeaderboardUser struct {
 	Answers int `json:"answers"`
 	Questions int `json:"questions"`
 }
+type Notification struct {
+	Id int `json:"id"`
+	QuestionId int `json:"question_id"`
+	QuestionAuthorId int `json:"question_author_id"`
+	AnswerAuthorId int `json:"answer_author_id"`
+	AuthorAnswerName string `json:"author_answer_name"`
+	IsRead bool `json:"isRead"`
+}
+type NotificationUpdate struct {
+	Id int `json:"id"`
+}

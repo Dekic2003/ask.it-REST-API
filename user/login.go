@@ -14,7 +14,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	req,err := ioutil.ReadAll(r.Body)
 	if err != nil{
-		panic(err)
+		utils.WriteError(w,"Unable to read body",err,http.StatusInternalServerError)
+		return
 	}
 	var user LoginUser
 	var userDB DbUser

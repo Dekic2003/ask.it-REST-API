@@ -5,26 +5,31 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
 	"main/db"
+	"main/utils"
 	"net/http"
 )
 
-type DefaultResp struct {
-	Success bool `json:"success"`
-}
 
 func Post(w http.ResponseWriter, r *http.Request) {
 
 	req,err := ioutil.ReadAll(r.Body)
-	if err != nil{
-		panic(err)
+	if err != nil {
+		utils.WriteError(w,"Unable to update",err,http.StatusInternalServerError)
+		return
 	}
-	resp:=DefaultResp{Success: true}
 	var answer NewAnswer
 	json.Unmarshal(req,&answer)
-	db.Connection.Query("INSERT INTO answer(question_id, author_id, answer) VALUES (?,?,?)",answer.QuestionID,answer.AuthorId,answer.Answer)
-	res,err := json.Marshal(resp)
-	w.Header().Set("Content-Type","application/json")
-	w.Write(res)
+	_,err=db.Connection.Exec("INSERT INTO answer(question_id, author_id, answer) VALUES (?,?,?)",answer.QuestionID,answer.AuthorId,answer.Answer)
+	if err != nil {
+		utils.WriteError(w,"Unable to post answer",err,http.StatusInternalServerError)
+		return
+	}
+	_,err=db.Connection.Exec("INSERT INTO notifications (question_id, question_author_id, answer_author_id) VALUES (?,?,?);",answer.QuestionID,answer.QuestionAuthorId,answer.AuthorId)
+	if err != nil {
+		utils.WriteError(w,"Unable to send notification",err,http.StatusInternalServerError)
+		return
+	}
+	utils.WriteSuccess(w,"",true)
 }
 
 

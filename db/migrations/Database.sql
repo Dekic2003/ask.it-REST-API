@@ -61,3 +61,18 @@ CREATE TABLE answer_reactions(
                      foreign key (answer_id) references answer(id),
                      foreign key (author_id) references users(id)
 );
+CREATE TABLE notifications(
+    id int unsigned not null auto_increment,
+    question_id int unsigned,
+    question_author_id int unsigned,
+    answer_author_id int unsigned,
+    isRead bool DEFAULT false,
+
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp on update current_timestamp,
+
+    primary key (id),
+    foreign key (question_id) references question(id),
+    foreign key (question_author_id) references question(author_id),
+    foreign key (answer_author_id) references answer(author_id)
+)

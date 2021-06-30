@@ -12,8 +12,9 @@ import (
 func Post(w http.ResponseWriter, r *http.Request) {
 
 	req,err := ioutil.ReadAll(r.Body)
-	if err != nil{
-		panic(err)
+	if err != nil {
+		utils.WriteError(w, "Unable to read body", err, http.StatusInternalServerError)
+		return
 	}
 	var question NewQuestion
 	json.Unmarshal(req,&question)

@@ -1,9 +1,10 @@
 package questions
+
 import (
-	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"main/db"
+	"main/utils"
 	"net/http"
 )
 
@@ -28,9 +29,7 @@ func GetByAuthorId(w http.ResponseWriter, r *http.Request) {
 		questions=append(questions,question)
 
 	}
-	res,err := json.Marshal(questions)
-	w.Header().Set("Content-Type","application/json")
-	w.Write(res)
+	utils.WriteSuccess(w,questions,true)
 
 
 }

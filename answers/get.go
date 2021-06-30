@@ -1,10 +1,10 @@
 package answers
 
 import (
-	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"main/db"
+	"main/utils"
 	"net/http"
 )
 
@@ -17,20 +17,21 @@ func Get(w http.ResponseWriter, r *http.Request) {
  	var answers []Answer
 	results, err := db.Connection.Query("SELECT * FROM answer WHERE question_id=?",id)
 	if err!=nil {
-		panic(err)
+		utils.WriteError(w,"Unable to fetch question",err,http.StatusInternalServerError)
+		return
 	}
 	for results.Next(){
 		var answer Answer
 		err=results.Scan(&answer.Id,&answer.QuestionID,&answer.AuthorId,&answer.Answer,&answer.Likes,&answer.Dislikes,&answer.CreatedAt,&answer.UpdatedAt)
 		if err!=nil{
-			panic(err)
+			utils.WriteError(w,"Unable to scan results",err,http.StatusInternalServerError)
+			return
 		}
 		answers=append(answers,answer)
 
 	}
-	res,err := json.Marshal(answers)
-	w.Header().Set("Content-Type","application/json")
-	w.Write(res)
+	utils.WriteSuccess(w,"",true)
+
 
 
 }

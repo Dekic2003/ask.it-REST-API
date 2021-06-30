@@ -25,11 +25,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	hashedPass,err:=bcrypt.GenerateFromPassword(password,bcrypt.DefaultCost)
 	if err !=nil{
-		panic(err)
+		utils.WriteError(w,"Unable to hash password",err,http.StatusInternalServerError)
+		return
 	}
 	err = bcrypt.CompareHashAndPassword(hashedPass,password)
 	if err != nil {
-		panic(err)
+		utils.WriteError(w,"Password not matching hash",err,http.StatusInternalServerError)
+		return
 	}
 	res,err:=db.Connection.Exec("INSERT INTO users(name, surname, email, password) VALUES (?,?,?,?)",user.Name,user.Surname,user.Email,hashedPass)
 	userid,err:=res.LastInsertId()

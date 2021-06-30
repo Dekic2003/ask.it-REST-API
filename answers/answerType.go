@@ -6,6 +6,7 @@ type Answer struct {
 	Id int `json:"id"`
 	QuestionID int `json:"question_id"`
 	AuthorId int `json:"author_id"`
+	QuestionAuthorId int `json:"question_author_id"`
 	Answer string `json:"answer"`
 	Likes int `json:"likes"`
 	Dislikes int `json:"dislikes"`
@@ -14,6 +15,7 @@ type Answer struct {
 }
 type NewAnswer struct {
 	QuestionID int `json:"question_id"`
+	QuestionAuthorId int `json:"question_author_id"`
 	AuthorId int `json:"author_id"`
 	Answer string `json:"answer"`
 

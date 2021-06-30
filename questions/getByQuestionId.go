@@ -18,6 +18,7 @@ func GetByQuestionId(w http.ResponseWriter, r *http.Request) {
 	err := db.Connection.QueryRow("SELECT * FROM question WHERE id=?",id).Scan(&question.Id,&question.AuthorId,&question.Question,&question.Likes,&question.Dislikes,&question.CreatedAt,&question.UpdatedAt)
 	if err!=nil {
 		utils.WriteError(w,"Unable to fetch question",err,http.StatusInternalServerError)
+		return
 	}
 
 	utils.WriteSuccess(w,question,true)
