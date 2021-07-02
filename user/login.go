@@ -12,6 +12,7 @@ import (
 
 func Login(w http.ResponseWriter, r *http.Request) {
 
+	utils.EnableCors(&w,r);
 	req,err := ioutil.ReadAll(r.Body)
 	if err != nil{
 		utils.WriteError(w,"Unable to read body",err,http.StatusInternalServerError)

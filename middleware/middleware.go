@@ -25,6 +25,7 @@ func ValidateToken(next http.HandlerFunc)http.HandlerFunc{
 				return
 			}
 			if token.Valid{
+				//r.Header.Set("user-id",id)
 				next(w,r)
 			}
 		}

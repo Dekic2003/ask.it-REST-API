@@ -15,14 +15,14 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	params:=mux.Vars(r)
 	id:=params["id"]
  	var answers []Answer
-	results, err := db.Connection.Query("SELECT * FROM answer WHERE question_id=?",id)
+	results, err := db.Connection.Query("SELECT id, question_id, author_id, (SELECT email FROM users WHERE users.id=author_id) as author,answer, likes, dislikes, created_at, updated_at FROM answer WHERE question_id=?",id)
 	if err!=nil {
 		utils.WriteError(w,"Unable to fetch question",err,http.StatusInternalServerError)
 		return
 	}
 	for results.Next(){
 		var answer Answer
-		err=results.Scan(&answer.Id,&answer.QuestionID,&answer.AuthorId,&answer.Answer,&answer.Likes,&answer.Dislikes,&answer.CreatedAt,&answer.UpdatedAt)
+		err=results.Scan(&answer.Id,&answer.QuestionID,&answer.AuthorId,&answer.Author,&answer.Answer,&answer.Likes,&answer.Dislikes,&answer.CreatedAt,&answer.UpdatedAt)
 		if err!=nil{
 			utils.WriteError(w,"Unable to scan results",err,http.StatusInternalServerError)
 			return
@@ -30,7 +30,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		answers=append(answers,answer)
 
 	}
-	utils.WriteSuccess(w,"",true)
+	utils.WriteSuccess(w,answers,true)
 
 
 

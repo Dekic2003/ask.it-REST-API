@@ -19,8 +19,9 @@ func main() {
 	if err !=nil{
 		panic(err)
 	}
-	originsOk := handlers.AllowedOrigins([]string{"*"})
-	methodsOk := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+	headersOK := handlers.AllowedHeaders([]string{"Content-Type"})
+	originsOK := handlers.AllowedOrigins([]string{"*"})
+	methodsOK := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"})
 	db.Init()
 	r := mux.NewRouter()
 	r.HandleFunc("/", questions.Get).Methods("GET")
@@ -46,5 +47,5 @@ func main() {
 	r.HandleFunc("/answer/reaction",middleware.ValidateToken(answers.Reaction)).Methods("POST")
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Edit)).Methods("PUT")
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Delete)).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8000",handlers.CORS(originsOk, methodsOk)(r)))
+	log.Fatal(http.ListenAndServe(":8000",handlers.CORS(originsOK,headersOK, methodsOK)(r)))
 }

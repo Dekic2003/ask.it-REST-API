@@ -11,7 +11,7 @@ import (
 
 
 func Post(w http.ResponseWriter, r *http.Request) {
-
+	//userId:=r.Header.Get("user-id")
 	req,err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		utils.WriteError(w,"Unable to update",err,http.StatusInternalServerError)
