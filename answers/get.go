@@ -15,7 +15,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	params:=mux.Vars(r)
 	id:=params["id"]
  	var answers []Answer
-	results, err := db.Connection.Query("SELECT id, question_id, author_id, (SELECT email FROM users WHERE users.id=author_id) as author,answer, likes, dislikes, created_at, updated_at FROM answer WHERE question_id=?",id)
+	results, err := db.Connection.Query("SELECT id, question_id, author_id, (SELECT email FROM users WHERE users.id=author_id) as author,answer, (SELECT  COUNT(*) FROM answer_reactions WHERE answer_id=answers.id AND rating=true) as likes, (SELECT  COUNT(*) FROM answer_reactions WHERE answer_id=answers.id AND rating=false) as dislikes, created_at, updated_at FROM answers WHERE question_id=?",id)
 	if err!=nil {
 		utils.WriteError(w,"Unable to fetch question",err,http.StatusInternalServerError)
 		return

@@ -12,14 +12,16 @@ import (
 	"main/questions"
 	"main/user"
 	"net/http"
+	"os"
 )
 
 func main() {
 	err := godotenv.Load(".env")
+	port := os.Getenv("PORT")
 	if err !=nil{
 		panic(err)
 	}
-	headersOK := handlers.AllowedHeaders([]string{"Content-Type"})
+	headersOK := handlers.AllowedHeaders([]string{"Content-Type","X-Requested-With","authorization","id"})
 	originsOK := handlers.AllowedOrigins([]string{"*"})
 	methodsOK := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"})
 	db.Init()
@@ -46,6 +48,6 @@ func main() {
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Post)).Methods("POST")
 	r.HandleFunc("/answer/reaction",middleware.ValidateToken(answers.Reaction)).Methods("POST")
 	r.HandleFunc("/answer", middleware.ValidateToken(answers.Edit)).Methods("PUT")
-	r.HandleFunc("/answer", middleware.ValidateToken(answers.Delete)).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8000",handlers.CORS(originsOK,headersOK, methodsOK)(r)))
+	r.HandleFunc("/answer/{id}", middleware.ValidateToken(answers.Delete)).Methods("DELETE")
+	log.Fatal(http.ListenAndServe(":"+port,handlers.CORS(originsOK,headersOK, methodsOK)(r)))
 }

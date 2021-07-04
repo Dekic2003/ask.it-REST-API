@@ -19,7 +19,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	}
 	var question EditedQuestion
 	json.Unmarshal(req,&question)
-	_,err = db.Connection.Exec("UPDATE question SET question = ? WHERE id = ?", question.Question, question.Id)
+	_,err = db.Connection.Exec("UPDATE questions SET question = ? WHERE id = ?", question.Question, question.Id)
 	if err != nil {
 		utils.WriteError(w,"Unable to update",err,http.StatusInternalServerError)
 		return

@@ -18,7 +18,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 	var question DeleteQuestion
 	json.Unmarshal(req,&question)
-	_, err = db.Connection.Query("DELETE FROM question WHERE id = ?", question.Id)
+	_, err = db.Connection.Query("DELETE FROM questions WHERE id = ?", question.Id)
 	if err != nil {
 		utils.WriteError(w,"Unable to delete",err,http.StatusInternalServerError)
 		return

@@ -12,8 +12,7 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 
 	id:=r.Header.Get("id")
 	var notifiations []Notification
-
-	res,err := db.Connection.Query("SELECT id,question_id,question_author_id,answer_author_id,(SELECT email FROM users  WHERE id=answer_author_id) as author_answer_name,isRead FROM notifications where question_author_id=?",id)
+	res,err := db.Connection.Query("SELECT id,question_id,question_author_id,answer_author_id,(SELECT email FROM users  WHERE id=answer_author_id) as author_answer_name,isRead FROM notifications WHERE question_author_id=? AND isRead=false",id)
 	if err!=nil{
 		utils.WriteError(w,"Unable to fetch notifiactions",err,http.StatusInternalServerError)
 		return

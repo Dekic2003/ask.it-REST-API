@@ -1,4 +1,5 @@
 package answers
+
 import (
 	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
@@ -18,7 +19,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	}
 	var answer EditedAnswer
 	json.Unmarshal(req,&answer)
-	_,err=db.Connection.Query("UPDATE answer SET answer = ? WHERE id = ?",answer.Answer,answer.Id)
+	_,err=db.Connection.Query("UPDATE answers SET answer = ? WHERE id = ?",answer.Answer,answer.Id)
 	if err != nil {
 		utils.WriteError(w,"Unable to update",err,http.StatusInternalServerError)
 		return

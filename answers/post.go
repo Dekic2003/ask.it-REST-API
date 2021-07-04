@@ -19,7 +19,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	}
 	var answer NewAnswer
 	json.Unmarshal(req,&answer)
-	_,err=db.Connection.Exec("INSERT INTO answer(question_id, author_id, answer) VALUES (?,?,?)",answer.QuestionID,answer.AuthorId,answer.Answer)
+	_,err=db.Connection.Exec("INSERT INTO answers(question_id, author_id, answer) VALUES (?,?,?)",answer.QuestionID,answer.AuthorId,answer.Answer)
 	if err != nil {
 		utils.WriteError(w,"Unable to post answer",err,http.StatusInternalServerError)
 		return
