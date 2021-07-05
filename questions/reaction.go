@@ -1,12 +1,12 @@
 package questions
 
 import (
-"encoding/json"
-_ "github.com/go-sql-driver/mysql"
-"io/ioutil"
-"main/db"
-"main/utils"
-"net/http"
+	"encoding/json"
+	_ "github.com/go-sql-driver/mysql"
+	"io/ioutil"
+	"main/db"
+	"main/utils"
+	"net/http"
 )
 
 func Reaction(w http.ResponseWriter, r *http.Request) {

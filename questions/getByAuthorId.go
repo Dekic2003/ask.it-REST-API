@@ -16,7 +16,7 @@ func GetByAuthorId(w http.ResponseWriter, r *http.Request) {
 	id:=params["id"]
 
 	var questions []Question
-	results, err := db.Connection.Query("SELECT * FROM questions WHERE author_id=?",id)
+	results, err := db.Connection.Query("SELECT * FROM questions WHERE author_id=? ",id)
 	if err!=nil {
 		panic(err)
 	}

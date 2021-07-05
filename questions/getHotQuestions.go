@@ -12,7 +12,7 @@ import (
 func GetHotQuestions(w http.ResponseWriter, r *http.Request) {
 
 	var questions []Question
-	results, err := db.Connection.Query("SELECT questions.id, users.id as author_id, users.email, questions.question, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=true) as likes, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=false) as dislikes, questions.created_at, questions.updated_at FROM questions INNER JOIN users on questions.author_id = users.id ORDER BY likes DESC ")
+	results, err := db.Connection.Query("SELECT questions.id, users.id as author_id, users.email, questions.question, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=true) as likes, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=false) as dislikes, questions.created_at, questions.updated_at FROM questions INNER JOIN users ON questions.author_id = users.id ORDER BY likes DESC ")
 	if err!=nil {
 	utils.WriteError(w,"Unable to get hot questions",err,http.StatusInternalServerError)
 		return

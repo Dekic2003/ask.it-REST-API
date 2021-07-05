@@ -72,8 +72,3 @@ CREATE TABLE notifications(
     foreign key (question_author_id) references questions(author_id),
     foreign key (answer_author_id) references answers(author_id)
 );
-ALTER TABLE answer_reactions DROP CONSTRAINT answer_reactions.answer_reactions_ibfk_1;
-ALTER TABLE notifications DROP CONSTRAINT notifications.notifications_ibfk_3;
-ALTER TABLE question_reactions DROP CONSTRAINT question_reactions.question_reactions_ibfk_1;
-ALTER TABLE notifications DROP CONSTRAINT notifications.notifications_ibfk_1;
-ALTER TABLE notifications DROP CONSTRAINT notifications.notifications_ibfk_2;
