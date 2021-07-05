@@ -32,7 +32,7 @@ func main() {
 	r.HandleFunc("/author/{id}", questions.GetByAuthorId).Methods("GET")
 	r.HandleFunc("/",middleware.ValidateToken(questions.Post)).Methods("POST")
 	r.HandleFunc("/", middleware.ValidateToken(questions.Edit)).Methods("PUT")
-	r.HandleFunc("/", middleware.ValidateToken(questions.Delete)).Methods("DELETE")
+	r.HandleFunc("/{id}", middleware.ValidateToken(questions.Delete)).Methods("DELETE")
 	r.HandleFunc("/question/reaction",middleware.ValidateToken(questions.Reaction)).Methods("POST")
 	r.HandleFunc("/register", user.Register).Methods("POST")
 	r.HandleFunc("/login", user.Login).Methods("POST")

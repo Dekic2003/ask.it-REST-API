@@ -25,9 +25,6 @@ type EditedAnswer struct {
 	Id int `json:"id"`
 	Answer string `json:"answer"`
 }
-type DeleteAnswer struct {
-	Id int `json:"id"`
-}
 type AnswerReaction struct {
 	AuthorId int `json:"author_id"`
 	AnswerId int `json:"answer_id"`

@@ -22,7 +22,7 @@ func GetByAuthorId(w http.ResponseWriter, r *http.Request) {
 	}
 	for results.Next(){
 		var question Question
-		err=results.Scan(&question.Id,&question.AuthorId,&question.Question,&question.Likes,&question.Dislikes,&question.CreatedAt,&question.UpdatedAt)
+		err=results.Scan(&question.Id,&question.AuthorId,&question.Question,&question.CreatedAt,&question.UpdatedAt)
 		if err!=nil{
 			panic(err)
 		}

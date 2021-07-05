@@ -1,9 +1,8 @@
 package questions
 
 import (
-	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
-	"io/ioutil"
+	"github.com/gorilla/mux"
 	"main/db"
 	"main/utils"
 	"net/http"
@@ -11,14 +10,9 @@ import (
 
 func Delete(w http.ResponseWriter, r *http.Request) {
 
-	req,err := ioutil.ReadAll(r.Body)
-	if err != nil{
-		utils.WriteError(w,"Unable to read body",err,http.StatusBadRequest)
-		return
-	}
-	var question DeleteQuestion
-	json.Unmarshal(req,&question)
-	_, err = db.Connection.Query("DELETE FROM questions WHERE id = ?", question.Id)
+	params:=mux.Vars(r)
+	id:=params["id"]
+	_, err := db.Connection.Query("DELETE FROM questions WHERE id = ?",id)
 	if err != nil {
 		utils.WriteError(w,"Unable to delete",err,http.StatusInternalServerError)
 		return
