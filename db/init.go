@@ -15,7 +15,7 @@ func Init()  {
 	dbHost :=os.Getenv("DB_HOST")
 	dbPass :=os.Getenv("DB_PASSWORD")
 	dbUser :=os.Getenv("DB_USERNAME")
-	Connection, err = sql.Open("mysql",fmt.Sprintf("%s:%s@%s/%s?reconnect=true?parseTime=true",dbUser,dbPass,dbHost,dbName))
+	Connection, err = sql.Open("mysql",fmt.Sprintf("%s:%s@tcp(%s)/%s?reconnect=true?parseTime=true",dbUser,dbPass,dbHost,dbName))
 	if err != nil{
 		fmt.Println("Error occured",err)
 		panic(err)
