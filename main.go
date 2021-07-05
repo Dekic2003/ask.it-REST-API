@@ -4,7 +4,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"log"
 	"main/answers"
 	"main/db"
@@ -16,11 +15,11 @@ import (
 )
 
 func main() {
-	err := godotenv.Load(".env")
+	//err := godotenv.Load(".env")
 	port := os.Getenv("PORT")
-	if err !=nil{
+	/*if err !=nil{
 		panic(err)
-	}
+	}*/
 	headersOK := handlers.AllowedHeaders([]string{"Content-Type","X-Requested-With","authorization","id"})
 	originsOK := handlers.AllowedOrigins([]string{"*"})
 	methodsOK := handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS", "DELETE", "PUT"})
