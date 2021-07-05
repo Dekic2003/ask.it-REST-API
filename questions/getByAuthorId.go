@@ -16,7 +16,7 @@ func GetByAuthorId(w http.ResponseWriter, r *http.Request) {
 	id:=params["id"]
 
 	var questions []Question
-	results, err := db.Connection.Query("SELECT questions.id, users.id as author_id, users.email, questions.question, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=true) as likes, (SELECT  COUNT(*) FROM question_reactions WHERE question_id=questions.id AND rating=false) as dislikes, questions.created_at, questions.updated_at FROM questions INNER JOIN users on questions.author_id = users.id WHERE author_id=? ",id)
+	results, err := db.Connection.Query("SELECT * FROM questions WHERE author_id=? ",id)
 	if err!=nil {
 		panic(err)
 	}
