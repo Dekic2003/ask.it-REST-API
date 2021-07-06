@@ -157,6 +157,13 @@ Method: PUT
 >```
 >localhost:8000/answer
 >```
+### Headers
+
+|Content-Type|Value|
+|---|---|
+|authorization|Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJ1c2VyIjoib3NtYW5AaGFkemljLmNvbSJ9.87m0TNKGchb6z63izeeFfgjrlgQmVq94wn589cWjk8w|
+
+
 ### Body (**raw**)
 
 ```json
@@ -174,14 +181,19 @@ Method: PUT
 ### Description: 
 Method: DELETE
 >```
->localhost:8000/answer
+>localhost:8000/answer/:id
 >```
+### Headers
+
+|Content-Type|Value|
+|---|---|
+|authorization|Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJ1c2VyIjoib3NtYW5AaGFkemljLmNvbSJ9.87m0TNKGchb6z63izeeFfgjrlgQmVq94wn589cWjk8w|
+
+
 ### Body (**raw**)
 
 ```json
-{
-    "id":6
-}
+
 ```
 
 
@@ -252,8 +264,8 @@ Method: POST
 
 ```json
 {
-    "author_id":1,
-    "answer_id":5,
+    "author_id":7,
+    "answer_id":22,
     "reaction":true
 }
 ```
@@ -299,7 +311,7 @@ Method: GET
 
 |Content-Type|Value|
 |---|---|
-|id|1|
+|id|7|
 
 
 
@@ -336,6 +348,12 @@ Method: PUT
 |authorization|Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJ1c2VyIjoib3NtYW5AaGFkemljLmNvbSJ9.87m0TNKGchb6z63izeeFfgjrlgQmVq94wn589cWjk8w|
 
 
+### Body (**raw**)
+
+```json
+
+```
+
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
 
@@ -358,7 +376,6 @@ Method: PUT
 ```json
 {
     "id":7,
-    "email":"david@dobrik.com",
     "password":"jabihd",
     "newPassword":"david"
 }
